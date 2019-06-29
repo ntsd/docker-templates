@@ -1,3 +1,6 @@
+---
+Jenkins - Docker Compose
+---
 version: '3.7'
 services:
     jenkins:

@@ -1,7 +1,10 @@
+---
+Nginx static web - Docker Compose
+---
 version: '3.7'
 services:
-  nginx:
-    build: .
-    restart: always
-    ports:
-      - "80:80"
+    nginx:
+        build: .
+        restart: always
+        ports:
+            - "80:80"
