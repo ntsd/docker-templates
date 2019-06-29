@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+    jenkins:
+        build: .
+        restart: always
+        volumes:
+            - ./jenkins_data:/var/jenkins_home
+        ports:
+            - 443:8443
+            - 50000:50000
