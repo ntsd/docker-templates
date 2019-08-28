@@ -1,0 +1,82 @@
+version: '3.7'
+services:
+  cassandra-1:
+    container_name: cassandra-1
+    image: cassandra:3.11.4
+    restart: always
+    volumes:
+      - ./cassandra1:/var/lib/cassandra
+    environment:
+      CASSANDRA_LISTEN_ADDRESS: cassandra-1
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-1
+      CASSANDRA_SEEDS: "cassandra-1, cassandra-2"
+      CASSANDRA_CLUSTER_NAME: cassandra_cluster
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_DC: thai_datacenter
+      CASSANDRA_RACK: rack1
+    ports:
+      - 9042:9042
+      - 7000
+    networks: 
+      - cassandra
+
+  cassandra-2:
+    container_name: cassandra-2
+    image: cassandra:3.11.4
+    restart: always
+    volumes:
+      - ./cassandra2:/var/lib/cassandra
+    environment:
+      CASSANDRA_LISTEN_ADDRESS: cassandra-2
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-2
+      CASSANDRA_SEEDS: "cassandra-1, cassandra-2"
+      CASSANDRA_CLUSTER_NAME: cassandra_cluster
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_DC: thai_datacenter
+      CASSANDRA_RACK: rack1
+    depends_on:
+      - cassandra-1
+    ports:
+      - 9043:9042
+      - 7000
+    networks: 
+      - cassandra
+
+  cassandra-3:
+    container_name: cassandra-3
+    image: cassandra:3.11.4
+    restart: always
+    volumes:
+      - ./cassandra3:/var/lib/cassandra
+    environment: 
+      CASSANDRA_LISTEN_ADDRESS: cassandra-3
+      CASSANDRA_BROADCAST_ADDRESS: cassandra-3
+      CASSANDRA_SEEDS: "cassandra-1, cassandra-2"
+      CASSANDRA_CLUSTER_NAME: cassandra_cluster
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_DC: thai_datacenter
+      CASSANDRA_RACK: rack1
+    depends_on:
+      - cassandra-2
+    ports:
+      - 9044:9042
+      - 7000
+    networks:
+      - cassandra
+  
+  cassandra-load-keyspace:
+    container_name: cassandra-load-keyspace
+    image: cassandra:3.11.4
+    depends_on:
+      - cassandra-3
+    volumes:
+      - ./cassandra_init_schema.cql:/schema.cql 
+    command: /bin/bash -c "sleep 120 && echo loading cassandra keyspace && cqlsh cassandra-1 -f /schema.cql"
+    ports:
+      - 7000
+    networks:
+      - cassandra
+
+networks:
+  cassandra:
+    external: true
