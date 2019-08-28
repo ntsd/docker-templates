@@ -1,6 +1,3 @@
----
-Nginx static web - Docker Compose
----
 version: '3.7'
 services:
     nginx:

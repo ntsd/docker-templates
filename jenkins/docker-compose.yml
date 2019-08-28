@@ -1,9 +1,7 @@
----
-Jenkins - Docker Compose
----
 version: '3.7'
 services:
     jenkins:
+        container_name: jenkins
         build: .
         restart: always
         volumes:
