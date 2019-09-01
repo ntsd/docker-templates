@@ -9,7 +9,7 @@ keytool -genkey -keyalg RSA -alias selfsigned -keystore jenkins_keystore.jks -st
 #### Get initial password
 
 ```
-docker exec -it ${CONTAINER} cat /var/jenkins_home/secrets/initialAdminPassword
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 #### Fix permission denined
