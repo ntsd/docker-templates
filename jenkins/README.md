@@ -12,6 +12,12 @@ keytool -genkey -keyalg RSA -alias selfsigned -keystore jenkins_keystore.jks -st
 docker exec -it ${CONTAINER} cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
+#### Fix permission denined
+
+```
+sudo chown -R 1000 jenkins_data
+```
+
 #### Reference
 
 https://github.com/jenkinsci/docker
