@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  docusaurus:
+    build: .
+    container_name: docusaurus
+    ports:
+      - 3000:3000
+      - 35729:35729
+    restart: always
+    volumes:
+      - /app/yarn_cache:/yarn
+      - /app/node_modules_cache:/app/node_modules
