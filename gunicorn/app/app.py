@@ -4,8 +4,10 @@ from flask import Flask
 
 print(os.environ)
 
+app = Flask(__name__)
+
 if __name__ == '__main__':
-    if eval(os.getenv('DEBUG', True)):
+    if eval(os.getenv('DEBUG', 'True')):
         port = int(os.environ.get('PORT', 80))
         app.run(host='0.0.0.0', port=port, threaded=True, debug=True, use_reloader=True)
     else:
