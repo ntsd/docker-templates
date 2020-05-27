@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  ghost:
+    image: ghost:3-alpine
+    restart: always
+    ports:
+      - 8080:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+      # this url value is just an example, and is likely wrong for your environment!
+      url: http://localhost:8080
+    volumes:
+      - ./ghost_volume:/var/lib/ghost/content
+
+  db:
+    image: mariadb:10.4.13
+    depends_on:
+      - ghost
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ./ghost_db_volume:/var/lib/mysql
+    ports:
+      - 3306:3306
