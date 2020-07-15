@@ -23,3 +23,5 @@ sudo chown -R 1000 jenkins_data
 https://github.com/jenkinsci/docker
 
 https://code-maze.com/ci-jenkins-docker/
+
+https://github.com/hughperkins/howto-jenkins-ssl/blob/master/letsencrypt.md
