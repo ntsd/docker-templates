@@ -7,5 +7,5 @@ services:
         volumes:
             - ./jenkins_data:/var/jenkins_home
         ports:
-            - 443:8443
+            - 8443:8443
             - 50000:50000
