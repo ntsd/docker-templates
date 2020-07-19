@@ -6,6 +6,9 @@ services:
         restart: always
         volumes:
             - ./jenkins_data:/var/jenkins_home
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ${DOCKER_BIN}:/usr/bin/docker
+            - ${DOCKER_COMPOSE_BIN}:/usr/bin/docker-compose
         ports:
             - 8443:8443
             - 50000:50000
