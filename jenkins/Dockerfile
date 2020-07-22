@@ -1,6 +1,11 @@
 FROM jenkins/jenkins:alpine
 
-USER jenkins
+# TODO use user "jenkins" instead
+USER root
+
+RUN apk add py-pip python3-dev libffi-dev openssl-dev gcc libc-dev make
+
+RUN pip3 install docker-compose
 
 COPY jenkins_keystore.jks /var/lib/jenkins/
 
