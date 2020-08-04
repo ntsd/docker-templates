@@ -1,24 +1,30 @@
 # Jenkins Template
 
-#### Generate ssh keystore
+## Create Volume
+
+``` bash
+docker volume create docker-bin --opt device=/snap/bin/docker --opt type=bind
+```
+
+## Generate ssh keystore
 
 ``` bash
 keytool -genkey -keyalg RSA -alias selfsigned -keystore jenkins_keystore.jks -storepass mypassword -keysize 4096
 ```
 
-#### Get initial password
+## Get initial password
 
-```
+``` bash
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
-#### Fix permission denined
+## Fix permission denined
 
-```
+``` bash
 sudo chown -R 1000 jenkins_data
 ```
 
-#### Reference
+## Reference
 
 https://github.com/jenkinsci/docker
 
